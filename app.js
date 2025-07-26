@@ -32,15 +32,23 @@ function reset() {
   instructionsEl.textContent =
     "ℹ️ Tap the wheel to spin! (You can also draw a new card if you don't like this one.)";
   phase = "before_spin";
-  pickCard();
 }
 
 function pickCard() {
   const [left, right] = cards[Math.floor(Math.random() * cards.length)];
-  leftWordEl.textContent = left;
-  rightWordEl.textContent = right;
-  wheelLeft.textContent = left;
-  wheelRight.textContent = right;
+
+  // flip to back
+  cardEl.classList.add("flipped");
+  // after halfway through the flip, swap words
+  setTimeout(() => {
+    const [left, right] = cards[Math.floor(Math.random() * cards.length)];
+    leftWordEl.textContent = left;
+    rightWordEl.textContent = right;
+    wheelLeft.textContent = left;
+    wheelRight.textContent = right;
+    // flip back to front
+    cardEl.classList.remove("flipped");
+  }, 300); // half of 600ms
 }
 
 // --- 1. Tap Card → get a new card ---
@@ -137,3 +145,4 @@ resetBtn.addEventListener("click", reset);
 // --- INIT ---
 // When page loads, we call reset() to set everything up.
 reset();
+pickCard();

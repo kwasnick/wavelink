@@ -28,6 +28,7 @@ body, html {
 
 /* --- Card --- */
 
+/* --- Card Container (with 3D perspective) --- */
 .card {
   position: relative;
   width: 300px;            /* adjust as needed */
@@ -39,12 +40,57 @@ body, html {
   justify-content: center;
   margin: 40px auto;
   overflow: hidden;
+  background: #111827;
+  perspective: 1000px;      /* enable 3D view for children */
+}
+
+/* Inner wrapper that actually flips */
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+
+/* Front and back faces */
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0; left: 0;
+  backface-visibility: hidden;
+}
+
+.card-front {
   background: linear-gradient(
     to right,
     #34D399 50%,  /* green */
     #F9FAFB 50%   /* off‑white */
   );
 }
+
+
+/* The “back” face—visible during the flip */
+.card-back {
+  background: linear-gradient(
+    to right,
+    #F9FAFB 50%,
+    #34D399 50%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: rotateY(180deg);
+}
+
+/* When you add .flipped to .card, rotate the inner wrapper */
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+/* --- Card words --- */
 
 .card .word {
   position: absolute;

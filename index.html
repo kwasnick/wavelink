@@ -10,8 +10,15 @@
     <div class="app">
       <!-- 1. Card area -->
       <div id="card" class="card">
-        <span id="leftWord" class="word left"></span>
-        <span id="rightWord" class="word right"></span>
+        <div class="card-inner">
+          <!-- Front face: shows the two words -->
+          <div class="card-front">
+            <span id="leftWord" class="word left"></span>
+            <span id="rightWord" class="word right"></span>
+          </div>
+          <!-- Back face: whatever design or text you like -->
+          <div class="card-back"></div>
+        </div>
       </div>
 
       <!-- 3‑6. Wheel area -->
