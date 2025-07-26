@@ -1,0 +1,23 @@
+<svg width="64" height="64" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Define a repeating speckle pattern -->
+  <defs>
+    <pattern id="speckles" patternUnits="userSpaceOnUse" width="8" height="8">
+      <!-- two dots per tile for a more random feel -->
+      <circle cx="2" cy="2" r="0.5" fill="white"/>
+      <circle cx="6" cy="5" r="0.5" fill="white"/>
+    </pattern>
+  </defs>
+
+  <!-- Concentric color layers -->
+  <circle cx="32" cy="32" r="32" fill="#C8E6C9"/>
+  <circle cx="32" cy="32" r="26" fill="#80CBC4"/>
+  <circle cx="32" cy="32" r="20" fill="#FF7043"/>
+  <circle cx="32" cy="32" r="14" fill="#FFD54F"/>
+
+  <!-- Central head silhouette -->
+  <circle cx="32" cy="22" r="8" fill="#F48FB1"/>
+  <rect   x="24" y="30" width="16" height="12" rx="6" fill="#F48FB1"/>
+
+  <!-- Overlay the speckles -->
+  <rect width="64" height="64" fill="url(#speckles)" fill-opacity="0.5"/>
+</svg>
