@@ -30,7 +30,7 @@ function reset() {
   resetBtn.classList.add("hidden");
 
   instructionsEl.textContent =
-    "ℹ️ Tap the wheel to spin! (You can also draw a new card if you don't like this one.)";
+    "ℹ️ Tap the wheel to spin! (You can also tap the card to draw a new card if you don't like this one.)";
   phase = "before_spin";
   pickCard();
 }
