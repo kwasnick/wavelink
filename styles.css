@@ -85,6 +85,7 @@ body, html {
   width: calc(var(--radius)*2); height: calc(var(--radius));
   overflow: hidden;
   cursor: pointer;
+  touch-action: none;
 }
 
 /* static background semicircle */
