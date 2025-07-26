@@ -19,7 +19,7 @@ body, html {
 /* --- App container --- */
 .app {
   position: relative;
-  width: 90vw; height: 60vh;
+  width: 90vw; height: 70vh;
   vertical-align: center;
   border-radius: 20px;
   background: #111827;

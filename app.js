@@ -111,6 +111,23 @@ window.addEventListener("pointerup", () => {
   isDragging = false;
 });
 
+wheelContainer.addEventListener("touchstart", (e) => {
+  if (phase !== "guess") return;
+  isDragging = true;
+  updateSelector(e.touches[0]);
+  e.preventDefault(); // stop the page from scrolling
+});
+
+window.addEventListener("touchmove", (e) => {
+  if (!isDragging) return;
+  updateSelector(e.touches[0]);
+  e.preventDefault();
+});
+
+window.addEventListener("touchend", () => {
+  isDragging = false;
+});
+
 function updateSelector(e) {
   const rect = wheelContainer.getBoundingClientRect();
   const cx = rect.left + rect.width / 2;
