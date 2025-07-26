@@ -110,6 +110,11 @@ function updateSelector(e) {
   const dx = e.clientX - cx;
   const dy = cy - e.clientY;
   const deg = (Math.atan2(dx, dy) * 180) / Math.PI;
+
+  if (deg < -89 || deg > 89) {
+    return;
+  }
+
   selectorEl.style.transform = `rotate(${deg}deg)`;
 }
 
