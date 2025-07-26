@@ -32,6 +32,7 @@ function reset() {
   instructionsEl.textContent =
     "ℹ️ Tap the wheel to spin! (You can also draw a new card if you don't like this one.)";
   phase = "before_spin";
+  pickCard();
 }
 
 function pickCard() {
@@ -162,4 +163,3 @@ resetBtn.addEventListener("click", reset);
 // --- INIT ---
 // When page loads, we call reset() to set everything up.
 reset();
-pickCard();
