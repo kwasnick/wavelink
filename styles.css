@@ -1,0 +1,251 @@
+:root {
+  --segment: 10deg;
+  --radius: 150px;        /* radius of the full circle */
+  --label-offset: 10px;   /* how far back from the rim you want the numbers */
+}
+
+/* --- Base & frame --- */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body, html {
+  width: 100%; height: 100%;
+  background: #0B0D17;
+  display: flex; align-items: center; justify-content: center;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  color: #FFF;
+}
+
+/* --- App container --- */
+.app {
+  position: relative;
+  width: 90vw; height: 60vh;
+  vertical-align: center;
+  border-radius: 20px;
+  background: #111827;
+  overflow: hidden;
+}
+
+/* --- Deck & Card --- */
+.deck, .card {
+  width: 80px; height: 120px;
+  margin: 40px auto;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.deck {
+  background: #f3f2ec;
+}
+
+.card {
+  width: 80%; height: 140px;
+  background: linear-gradient(
+    90deg,
+    #37D67A 0%, #37D67A 50%,
+    #f3f2ec 50%, #f3f2ec 100%
+  );
+  position: relative;
+}
+
+.hidden { display: none; }
+
+.card {
+  position: relative;
+  width: 300px;            /* adjust as needed */
+  height: 150px;           /* adjust as needed */
+  border-radius: 8px;
+  overflow: hidden;
+  background: linear-gradient(
+    to right,
+    #34D399 50%,  /* green */
+    #F9FAFB 50%   /* off‑white */
+  );
+}
+
+.card .word {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #111827;
+}
+
+/* left word (green half) */
+.card .word.left {
+  left: 25%;
+}
+.card .word.left::before {
+  content: "←";
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* right word (off‑white half) */
+.card .word.right {
+  left: 75%;
+}
+.card .word.right::before {
+  content: "→";
+  display: block;
+  margin-bottom: 6px;
+}
+
+/* --- Wheel (semi‑circle via clipped full‑circle) --- */
+.wheel {
+  position: absolute;
+  top: 200px; left: 30px;
+  width: calc(var(--radius)*2); height: calc(var(--radius));
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* static background semicircle */
+.wheel-bg,
+.wheel-face {
+  position: absolute;
+  top: 0; left: 0;
+  width: calc(var(--radius)*2); height: calc(var(--radius)*2);
+  border: 8px solid #f3f2ec;
+  border-radius: 50%;
+  clip-path: inset(0 0 50% 0);
+}
+
+.wheel-bg {
+  background: #f3f2ec;
+  z-index: 0;
+}
+
+/* colored arcs on top */
+.wheel-face {
+  background: conic-gradient(
+    from calc(var(--segment) * -5/2),
+    #E3A81F 0deg calc(var(--segment) * 1),
+    #C94C4C calc(var(--segment) * 1) calc(var(--segment) * 2),
+    #75AADB calc(var(--segment) * 2) calc(var(--segment) * 3),
+    #C94C4C calc(var(--segment) * 3) calc(var(--segment) * 4),
+    #E3A81F calc(var(--segment) * 4) calc(var(--segment) * 5),
+    transparent calc(var(--segment) * 5) 360deg
+  );
+  background-color: transparent;
+  z-index: 1;
+  transform: rotate(0deg);
+  transition: transform 1s ease-out;
+}
+
+/* central dial */
+.dial {
+  position: absolute;
+  width: 50px; height: 50px;
+  border-radius: 50%;
+  background: #C94C4C;
+  top: calc(var(--radius) - 25px);
+  left: calc(var(--radius) - 25px);
+  z-index: 2;
+}
+
+/* reposition the labels container */
+.labels {
+  position: absolute;
+  /* place it at the center of the full circle: */
+  top: 50%;
+  left: 50%;
+  width: 0px;   /* we’ll position each label absolutely from here */
+  height: 0px;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.label {
+  position: absolute;
+  transform-origin: center center;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #111827;
+}
+
+.l1 {
+  transform: rotate(calc(-2 * var(--segment)))
+             translate(0, calc(-1 * (var(--radius) - var(--label-offset))));
+}
+.l2 {
+  transform: rotate(calc(-1 * var(--segment)))
+             translate(0, calc(-1 * (var(--radius) - var(--label-offset))));
+}
+.l3 {
+  transform: rotate(0deg)
+             translate(0, calc(-1 * (var(--radius) - var(--label-offset))));
+}
+.l4 {
+  transform: rotate(var(--segment))
+             translate(0, calc(-1 * (var(--radius) - var(--label-offset))));
+}
+.l5 {
+  transform: rotate(calc(2 * var(--segment)))
+             translate(0, calc(-1 * (var(--radius) - var(--label-offset))));
+}
+
+/* selector needle */
+.selector {
+  position: absolute;
+  bottom: 0; left: 50%;
+  width: 4px; height: 100%;
+  background: #C94C4C;
+  transform-origin: bottom center;
+  z-index: 4;
+}
+
+/* ----- WHEEL‑WORDS UNDERNEATH (now dynamic) ----- */
+.wheel-words {
+  position: absolute;
+  top: 360px;
+  left: 30px;
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+}
+.wheel-words .left-word,
+.wheel-words .right-word {
+  font-weight: bold;
+  font-size: 1rem;
+  color: #f3f2ec;
+  position: relative;
+}
+.wheel-words .left-word::before {
+  content: "←";
+  margin-right: 4px;
+}
+.wheel-words .right-word::after {
+  content: "→";
+  margin-left: 4px;
+}
+
+.instructions {
+  position: absolute;
+  top: 400px;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1rem;
+  color: #f3f2ec;
+  padding: 1rem;
+}
+
+/* Controls */
+.controls {
+  position: absolute;
+  bottom: 20px; width: 100%;
+  display: flex; justify-content: space-around;
+}
+.btn {
+  background: #f3f2ec;
+  color: #111827;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 2rem;
+  cursor: pointer;
+}

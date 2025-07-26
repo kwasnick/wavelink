@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wavelength Clone</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <!-- 1. Card area -->
+      <div id="card" class="card">
+        <span id="leftWord" class="word left"></span>
+        <span id="rightWord" class="word right"></span>
+      </div>
+
+      <!-- 3‑6. Wheel area -->
+      <div id="wheelContainer" class="wheel">
+        <!-- static semicircle background -->
+        <div class="wheel-bg"></div>
+
+        <!-- colored arcs -->
+        <div class="wheel-face">
+          <!-- numeric labels -->
+          <div class="labels">
+            <span class="label l1">2</span>
+            <span class="label l2">3</span>
+            <span class="label l3">4</span>
+            <span class="label l4">3</span>
+            <span class="label l5">2</span>
+          </div>
+        </div>
+
+        <!-- central dial -->
+        <div class="dial"></div>
+
+        <!-- selector needle -->
+        <div id="selector" class="selector hidden"></div>
+      </div>
+
+      <!-- left/right words under wheel -->
+      <div class="wheel-words">
+        <div id="wheelLeft" class="left-word"></div>
+        <div id="wheelRight" class="right-word"></div>
+      </div>
+
+      <div id="instructions" class="instructions">Tap the wheel to spin!</div>
+
+      <!-- Controls -->
+      <div class="controls">
+        <button id="hideBtn" class="btn hidden">Hide →</button>
+        <button id="guessBtn" class="btn hidden">Lock Guess →</button>
+        <button id="resetBtn" class="btn hidden">Reset →</button>
+      </div>
+    </div>
+
+    <script src="cards.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
